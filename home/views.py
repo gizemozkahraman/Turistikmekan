@@ -3,16 +3,21 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
+from home.forms import SearchForm
 from home.models import Setting, ContactFormu, ContactFormMessage
-from product.models import Product
+from product.models import Product, Category, Images, Comment
 
 
 def index(request):
     setting = Setting.objects.get(pk=1)
-    sliderdata= Product.objects.all()[:4]
+    sliderdata = Product.objects.all()[:4]
+    lastproducts = Product.objects.all().order_by('-id')[:3]
+    category = Category.objects.all()
     context = {'setting': setting,
+               'category': category,
                'page': 'home',
-               'sliderdata': sliderdata
+               'sliderdata': sliderdata,
+               'lastproducts': lastproducts,
                }
     return render(request, 'index.html', context)
 
@@ -47,3 +52,43 @@ def iletisim(request):
     form = ContactFormu()
     context = {'setting': setting, 'form': form}
     return render(request, 'iletisim.html', context)
+
+
+def category_products(request, id, slug):
+    category = Category.objects.all()
+    categorydata = Category.objects.get(pk=id)
+    products = Product.objects.filter(category_id=id)
+    context = {'products': products,
+               'category': category,
+               'categorydata': categorydata,
+               }
+    return render(request, 'products.html', context)
+
+
+def product_detail(request, id, slug):
+    category = Category.objects.all()
+    product = Product.objects.get(pk=id)
+    images = Images.objects.filter(product_id=id)
+    comments = Comment.objects.filter(product_id=id, status='True')
+    context = {'product': product,
+               'category': category,
+               'images': images,
+               'comments': comments,
+               }
+    return render(request, 'product_detail.html', context)
+
+def product_search(request):
+
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            category = Category.objects.all()
+            query = form.cleaned_data['query']
+            products = Product.objects.filter(title__icontains=query)
+            context = {'products': products,
+                       'category': category,
+                       }
+            return render(request, 'product_search.html', context)
+
+
+    return HttpResponseRedirect('/')
