@@ -30,26 +30,31 @@
             <div class="row">
                 <div class="contact-form-right">
                     <h2>İletişim Formu</h2>
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-12">
-                                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-12">
+                            <div class="form-group">
 
-                                    {% if messages %}
-                                        {% for message in messages %}
-                                            <div class="alert alert-{{ message.tags }}" role="alert">
-                                                {{ message }}
-                                            </div>
-                                        {% endfor %}
-                                    {% endif %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert alert-{{ message.tags }}" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
 
-                                    <form action="" method="post">
-                                        {% csrf_token %}
-                                        {{ form.as_p }}
-                                        <input type="submit" value="SEND FORM">
-                                    </form>
-                                </div>
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <div class="submit-button text-center">
+                                        <button type="submit" class="btn hvr-hover" >Send Form
+                                        </button>
+                                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
+                    </div>
                 </div>
 
                 <div class="col-lg-8 col-sm-12">
@@ -62,9 +67,5 @@
         </div>
 
     </div>
-
-
-
-
 
 {% endblock %}
