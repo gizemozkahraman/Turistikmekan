@@ -1,0 +1,70 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ profile.user_name }} Profile {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block content %}
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>USER INFORMATION</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/user">My Account</a></li>
+                        <li class="breadcrumb-item active"> USER INFORMATION</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start About Page  -->
+    <div class="wishlist-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-main table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th></th>
+                                <td class="text-left">
+                                    <img class="img-fluid" src="{{profile.image.url}}" alt="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Name Surname</th>
+                                <td class="name-pr">{{profile.user_name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email </th>
+                                <td class="price-pr">{{profile.user.email}}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone</th>
+                                <td class="quantity-box">{{profile.phone}}</td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td class="quantity-box">{{profile.address}}</td>
+                            </tr>
+                            <tr>
+                                <th>City</th>
+                                <td class="quantity-box">{{profile.city}}</td>
+                            </tr>
+                            <tr>
+                                <th>Country</th>
+                                <td class="quantity-box">{{profile.country}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
