@@ -12,14 +12,8 @@
                     <ul>
 
                         {% if user.id is not None %}
-                            <li class="dropdown"><a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">
+                            <li ><a href="/user" >
                                 <i class="fa fa-user s_color"></i> {{ user.first_name }}</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" style="color: #6f42c1">My Wishlist</a></li>
-                                    <li><a href="#" style="color: #6f42c1">My Comments</a></li>
-                                    <li><a href="/user" style="color: #6f42c1">My Account</a></li>
-                                    <li><a href="/logout/" style="color: #6f42c1">Logout</a></li>
-                                </ul>
                             </li>
                         {% else %}
                             <li><a href="/login/"><i class="fas fa-location-arrow"></i> Login </a>--<a href="/signup/">Sign Up</a></li>
@@ -56,20 +50,18 @@
                 <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                     <li class="nav-item active"><a class="nav-link" href="/">Anasayfa</a></li>
                     <li class="nav-item"><a class="nav-link" href="/hakkimizda">Hakkımızda</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">SHOP</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="shop.html">Sidebar Shop</a></li>
-                            <li><a href="shop-detail.html">Shop Detail</a></li>
-                            <li><a href="cart.html">Cart</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
-                            <li><a href="my-account.html">My Account</a></li>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                        </ul>
-                    </li>
                     <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link" href="/iletisim">İletişim</a></li>
                     <li class="nav-item"><a class="nav-link" href="/referanslar">Referanslar</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">{{ user.first_name }}</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/user" style="color: #6f42c1">My Account</a></li>
+                            <li><a href="#" style="color: #6f42c1">My Wishlist</a></li>
+                            <li><a href="/user/comments" style="color: #6f42c1">My Comments</a></li>
+                            <li><a href="/logout/" style="color: #6f42c1">Logout</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

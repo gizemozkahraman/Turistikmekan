@@ -1,0 +1,70 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ profile.user_name }}-Comments {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block content %}
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>USER COMMENTS</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/user">My Account</a></li>
+                        <li class="breadcrumb-item active"> USER COMMENTS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start About Page  -->
+    <div class="wishlist-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-main table-responsive">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <table class="table">
+                            <tr>
+                                <th>Place </th>
+                                <th>Rate</th>
+                                <th>Subject</th>
+                                <th>Comments</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Delete</th>
+                            </tr>
+
+                            {% for rs in comments %}
+                                <tr>
+                                    <td class="name-pr"><a href="/product/{{ rs.product_id }}/{{ rs.product.slug }}"><b>{{rs.product.title}}</b></a></td>
+                                    <td class="price-pr">{{rs.rate}}</td>
+                                    <td class="quantity-box">{{rs.subject}}</td>
+                                    <td class="quantity-box">{{rs.comment}}</td>
+                                    <td class="quantity-box">{{rs.status}}</td>
+                                    <td class="quantity-box">{{rs.create_at}}</td>
+                                    <td class="remove-pr">
+                                        <a class="btn hvr-hover" href="/user/deletecomment/{{ rs.id }}" onclick="return confirm('Will be delete ! Are you sure?')">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
