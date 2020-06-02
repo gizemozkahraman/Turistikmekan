@@ -61,6 +61,20 @@
                                     </td>
                                 </tr>
                             {% endfor %}
+
+                        {% for rs in comment %}
+                                <tr>
+                                    <td class="name-pr"><a href="/product/{{ rs.product_id }}/{{ rs.product.slug }}"><b>{{rs.content.title}}</b></a></td>
+                                    <td class="price-pr">{{rs.rate}}</td>
+                                    <td class="quantity-box">{{rs.subject}}</td>
+                                    <td class="quantity-box">{{rs.comment}}</td>
+                                    <td class="quantity-box">{{rs.status}}</td>
+                                    <td class="quantity-box">{{rs.create_at}}</td>
+                                    <td class="remove-pr">
+                                        <a class="btn hvr-hover" href="/user/deletecomment/{{ rs.id }}" onclick="return confirm('Will be delete ! Are you sure?')">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                         </table>
                     </div>
                 </div>

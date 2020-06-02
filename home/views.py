@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
+from content.models import Menu, Content, CImages, Ccomment
 from home.forms import SearchForm, SignUpForm
 from home.models import Setting, ContactFormu, ContactFormMessage, UserProfile
 from product.models import Product, Category, Images, Comment
@@ -16,9 +17,17 @@ def index(request):
     sliderdata = Product.objects.all()[:4]
     lastproducts = Product.objects.all().order_by('-id')[:3]
     category = Category.objects.all()
+    menu = Menu.objects.all()
+    history = Content.objects.filter(type='TarihiYerler').order_by('-id')[:3]
+    museum = Content.objects.filter(type='Muzeler').order_by('-id')[:3]
+    holiday = Content.objects.filter(type='TatilBeldeleri').order_by('-id')[:3]
     context = {'setting': setting,
                'category': category,
                'page': 'home',
+               'history': history,
+               'menu': menu,
+               'museum': museum,
+               'holiday': holiday,
                'sliderdata': sliderdata,
                'lastproducts': lastproducts,
                }
@@ -70,16 +79,20 @@ def category_products(request, id, slug):
 
 def product_detail(request, id, slug):
     category = Category.objects.all()
-    product = Product.objects.get(pk=id)
-    images = Images.objects.filter(product_id=id)
-    comments = Comment.objects.filter(product_id=id, status='True')
-    context = {'product': product,
-               'category': category,
-               'images': images,
-               'comments': comments,
-               }
-    return render(request, 'product_detail.html', context)
-
+    try:
+        product = Product.objects.get(pk=id)
+        images = Images.objects.filter(product_id=id)
+        comments = Comment.objects.filter(product_id=id, status='True')
+        context = {'product': product,
+                   'category': category,
+                   'images': images,
+                   'comments': comments,
+                   }
+        return render(request, 'product_detail.html', context)
+    except:
+        messages.warning(request, "Hata ! İlgili içerik bulunamadı")
+        link = '/error'
+        return HttpResponseRedirect(link)
 
 def product_search(request):
     if request.method == 'POST':
@@ -155,3 +168,44 @@ def signup_view(request):
                'form': form,
                }
     return render(request, 'signup.html', context)
+
+def menu(request,id):
+    try:
+        content = Content.objects.get(menu_id=id)
+        link = '/content/' + str(content.id) + '/menu'
+        return HttpResponseRedirect(link)
+    except:
+        messages.warning(request, "Hata ! İlgili içerik bulunamadı")
+        link = '/error'
+        return HttpResponseRedirect(link)
+
+
+
+def contentdetail(request, id, slug):
+    category = Category.objects.all()
+    menu = Menu.objects.all()
+    try:
+        content = Content.objects.get(pk=id)
+        images = CImages.objects.filter(content_id=id)
+        comment = Ccomment.objects.filter(content_id=id, status='True')
+
+        context = {'content': content,
+                   'category': category,
+                   'menu': menu,
+                   'images': images,
+                   'comment': comment,
+                   }
+        return render(request, 'content_detail.html', context)
+    except:
+        messages.warning(request, "Hata ! İlgili içerik bulunamadı")
+        link = '/error'
+        return HttpResponseRedirect(link)
+
+def error(request):
+    category = Category.objects.all()
+    menu = Menu.objects.all()
+    context = {
+               'category': category,
+               'menu': menu,
+               }
+    return render(request, 'error_page.html', context)

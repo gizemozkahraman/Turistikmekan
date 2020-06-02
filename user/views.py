@@ -5,6 +5,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 
+from content.models import Ccomment
 from home.models import UserProfile
 from product.models import Category, Comment
 from user.forms import UserUpdateForm, ProfileUpdateForm
@@ -74,8 +75,10 @@ def comments(request):
     category = Category.objects.all()
     current_user = request.user
     comments = Comment.objects.filter(user_id=current_user.id)
+    comment = Ccomment.objects.filter(user_id=current_user.id)
     context = {'category': category,
                'comments': comments,
+               'comment': comment,
                }
     return render(request, 'user_comments.html', context)
 
@@ -83,5 +86,6 @@ def comments(request):
 def deletecomment(request, id):
     current_user = request.user
     Comment.objects.filter(id=id, user_id=current_user.id).delete()
+    Ccomment.objects.filter(id=id, user_id=current_user.id).delete()
     messages.success(request, 'Comment deleted ...')
     return HttpResponseRedirect('/user/comments')

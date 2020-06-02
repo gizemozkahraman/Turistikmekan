@@ -18,44 +18,92 @@
 
             {% endfor %}
         </div>
-    </div>
-</div>
-
-
-<!-- Start Blog  -->
-<div class="latest-blog">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="title-all text-center">
-                    <h1>En Son Eklenenler</h1>
-                </div>
-            </div>
+        <div class="title-all">
+            <h1>Tarihi Yerler</h1>
         </div>
         <div class="row">
-            {% for rs in lastproducts %}
-                <div class="col-md-6 col-lg-4 col-xl-4">
-                    <div class="blog-box">
-                        <div class="blog-img">
-                            <img class="img-fluid" src="{{ rs.image.url }}" alt="" style="height: 250px"/>
-                        </div>
-                        <div class="blog-content">
-                            <div class="title-blog">
-                                <h3>{{ rs.title }}</h3>
-                                <p>{{ rs.description }}</p>
-                            </div>
-                            <ul class="option-blog">
-                                <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                <li><a href="/product/{{ rs.id }}/{{ rs.slug }}"><i class="fas fa-eye"></i></a></li>
-                            </ul>
-                        </div>
+
+            {% for rs in history %}
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="shop-cat-box">
+                        <img class="img-fluid" src="{{ rs.image.url }}" alt="" style="height: 350px"/>
+                        <a class="btn hvr-hover" href="/content/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+
+        <div class="title-all">
+            <h1>Müzeler</h1>
+        </div>
+        <div class="row">
+            {% for rs in museum %}
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="shop-cat-box">
+                        <img class="img-fluid" src="{{ rs.image.url }}" alt="" style="height: 350px"/>
+                        <a class="btn hvr-hover" href="/content/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a>
                     </div>
                 </div>
             {% endfor %}
         </div>
-    </div>
-</div>
 
+        <div class="title-all">
+            <h1>Tatil Beldeleri</h1>
+        </div>
+        <div class="row">
+
+            {% for rs in holiday %}
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="shop-cat-box">
+                        <img class="img-fluid" src="{{ rs.image.url }}" alt="" style="height: 350px"/>
+                        <a class="btn hvr-hover" href="/content/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <!-- Start Blog  -->
+    <div class="latest-blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="title-all text-center">
+                        <h1>En Son Eklenenler</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for rs in lastproducts %}
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="blog-box">
+                            <div class="blog-img">
+                                <img class="img-fluid" src="{{ rs.image.url }}" alt="" style="height: 250px"/>
+                            </div>
+                            <div class="blog-content">
+                                <div class="title-blog">
+                                    <h3>{{ rs.title }}</h3>
+                                    <p>{{ rs.description }}</p>
+                                </div>
+                                <ul class="option-blog">
+                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
+                                    <li><a href="/product/{{ rs.id }}/{{ rs.slug }}"><i class="fas fa-eye"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <!-- End Blog  -->
 

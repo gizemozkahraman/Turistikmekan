@@ -27,6 +27,7 @@ urlpatterns = [
     path('iletisim/', views.iletisim, name='iletisim'),
     path('home/', include('home.urls')),
     path('user/', include('user.urls')),
+    path('content/', include('content.urls')),
     path('product/', include('product.urls')),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
@@ -37,6 +38,9 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout_view'),
     path('login/', views.login_view, name='login_view'),
     path('signup/', views.signup_view, name='signup_view'),
+    path('content/<int:id>/<slug:slug>/', views.contentdetail, name='contentdetail'),
+    path('menu/<int:id>', views.menu, name='menu'),
+    path('error/', views.error, name='error'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
