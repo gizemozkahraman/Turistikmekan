@@ -1,0 +1,84 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ profile.user_name }}-Contents {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block content %}
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>USER CONTENTS</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/user">My Account</a></li>
+                        <li class="breadcrumb-item active"> USER CONTENTS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start About Page  -->
+    <div class="wishlist-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-main table-responsive">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="text-left">
+                            <a class="btn hvr-hover" href="/user/addcontent">Add Content</a>
+                        </div>
+                        <table class="table">
+                            <tr>
+                                <th>Image </th>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Menu</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Detail</th>
+                            </tr>
+
+                            {% for rs in contents %}
+                                <tr>
+                                    <td class="quantity-box">
+                                        <a href="/content/{{ rs.id }}/{{ rs.slug }}">
+                                            <img src="{{ rs.image.url }}" style="height:30px;">
+                                        </a>
+                                    </td>
+                                    <td class="price-pr">
+                                        <a href="/content/{{ rs.id }}/{{ rs.slug }}">{{rs.title}}</a>
+                                    </td>
+                                    <td class="quantity-box">{{rs.type}}</td>
+                                    <td class="quantity-box">{{rs.category}}</td>
+                                    <td class="quantity-box">{{rs.menu.title}}</td>
+                                    <td class="quantity-box">{{rs.status}}</td>
+                                    <td class="quantity-box">{{rs.create_at}}</td>
+                                    <td class="quantity-box">
+                                        <a class="btn hvr-hover" href="/user/contentedit/{{ rs.id }}">Edit</a>
+                                    </td>
+                                    <td class="remove-pr">
+                                        <a class="btn hvr-hover" href="/user/contentdelete/{{ rs.id }}" onclick="return confirm('Will be delete ! Are you sure?')">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

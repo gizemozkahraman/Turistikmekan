@@ -18,9 +18,9 @@ def index(request):
     lastproducts = Product.objects.all().order_by('-id')[:3]
     category = Category.objects.all()
     menu = Menu.objects.all()
-    history = Content.objects.filter(type='TarihiYerler').order_by('-id')[:3]
-    museum = Content.objects.filter(type='Muzeler').order_by('-id')[:3]
-    holiday = Content.objects.filter(type='TatilBeldeleri').order_by('-id')[:3]
+    history = Content.objects.filter(type='TarihiYerler', status='True').order_by('-id')[:3]
+    museum = Content.objects.filter(type='Muzeler', status='True').order_by('-id')[:3]
+    holiday = Content.objects.filter(type='TatilBeldeleri', status='True').order_by('-id')[:3]
     context = {'setting': setting,
                'category': category,
                'page': 'home',
