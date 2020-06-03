@@ -8,7 +8,7 @@ from django.shortcuts import render
 # Create your views here.
 from content.models import Menu, Content, CImages, Ccomment
 from home.forms import SearchForm, SignUpForm
-from home.models import Setting, ContactFormu, ContactFormMessage, UserProfile
+from home.models import Setting, ContactFormu, ContactFormMessage, UserProfile, FAQ
 from product.models import Product, Category, Images, Comment
 
 
@@ -205,7 +205,19 @@ def error(request):
     category = Category.objects.all()
     menu = Menu.objects.all()
     context = {
-               'category': category,
-               'menu': menu,
-               }
+        'category': category,
+        'menu': menu,
+    }
     return render(request, 'error_page.html', context)
+
+
+def faq(request):
+    category = Category.objects.all()
+    menu = Menu.objects.all()
+    faq = FAQ.objects.all().order_by('ordernumber')
+    context = {
+        'category': category,
+        'menu': menu,
+        'faq': faq,
+    }
+    return render(request, 'faq.html', context)

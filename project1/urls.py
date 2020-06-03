@@ -41,6 +41,7 @@ urlpatterns = [
     path('content/<int:id>/<slug:slug>/', views.contentdetail, name='contentdetail'),
     path('menu/<int:id>', views.menu, name='menu'),
     path('error/', views.error, name='error'),
+    path('sss/', views.faq, name='faq'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

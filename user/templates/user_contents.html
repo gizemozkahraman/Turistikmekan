@@ -46,7 +46,7 @@
                                 <th>Title</th>
                                 <th>Type</th>
                                 <th>Category</th>
-                                <th>Menu</th>
+                                <th>Gallery</th>
                                 <th>Status</th>
                                 <th>Date</th>
                                 <th>Detail</th>
@@ -64,6 +64,9 @@
                                     </td>
                                     <td class="quantity-box">{{rs.type}}</td>
                                     <td class="quantity-box">{{rs.category}}</td>
+                                    <td class="quantity-box">
+                                        <a href="javascript:;" onclick="window.open('/user/contenaddimage/{{ rs.id }}','gallery', 'height=600,width=800,top=50,left=150')">Gallery</a>
+                                    </td>
                                     <td class="quantity-box">{{rs.menu.title}}</td>
                                     <td class="quantity-box">{{rs.status}}</td>
                                     <td class="quantity-box">{{rs.create_at}}</td>

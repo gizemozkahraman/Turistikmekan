@@ -5,7 +5,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 
-from content.models import Ccomment, Menu, Content, ContentForm
+from content.models import Ccomment, Menu, Content, ContentForm, ContentImageForm, CImages
 from home.models import UserProfile
 from product.models import Category, Comment
 from user.forms import UserUpdateForm, ProfileUpdateForm
@@ -154,3 +154,28 @@ def contentdelete(request, id):
     Content.objects.filter(id=id, user_id=current_user.id).delete()
     messages.success(request, 'Content deleted ...')
     return HttpResponseRedirect('/user/contents')
+
+def contenaddimage(request,id):
+    if request.method == 'POST':
+        lasturl = request.META.get('HTTP_REFERER')
+        form = ContentImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = CImages()
+            data.title = form.cleaned_data['title']
+            data.content_id = id
+            data.image = form.cleaned_data['image']
+            data.save()   # veritabanına kaydet
+            messages.success(request, 'Your image has been successfully uploaded!')
+            return HttpResponseRedirect(lasturl)
+        else:
+            messages.error(request, 'Form Error :' + str(form.errors))
+            return HttpResponseRedirect(lasturl)
+    else:
+        content = Content.objects.get(id=id)
+        images = []
+        try:
+            images = CImages.objects.filter(content_id=id)
+        except:
+            pass
+        form = ContentImageForm()
+        return render(request, 'content_gallery.html', {'form': form, 'content': content, 'images': images, })

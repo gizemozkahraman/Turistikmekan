@@ -77,6 +77,11 @@ class CImages(models.Model):
     title = models.CharField(max_length=50, blank=True)
     image = models.ImageField(blank=True, upload_to='images/')
 
+class ContentImageForm(ModelForm):
+    class Meta:
+        model = CImages
+        fields =['title', 'image']
+
     def __str__(self):
         return self.title
 
